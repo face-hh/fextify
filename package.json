@@ -1,0 +1,24 @@
+{
+  "name": "texteditor",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "tauri": "tauri"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^1.5.0"
+  },
+  "dependencies": {
+    "@ckeditor/ckeditor5-markdown-gfm": "^40.0.0",
+    "codemirror": "^5.65.15",
+    "emojione": "^4.5.0",
+    "hypermd": "^0.3.11",
+    "katex": "^0.16.9",
+    "marked": "^9.1.2",
+    "mathjax": "^3.2.2",
+    "turndown": "^7.1.2",
+    "turndown-plugin-gfm": "^1.0.2",
+    "twemoji": "^14.0.2"
+  }
+}

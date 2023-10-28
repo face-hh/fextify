@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" href="styles.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tauri App</title>
+  <script type="module" src="/main.js" defer></script>
+  <style>
+    .logo.vanilla:hover {
+      filter: drop-shadow(0 0 2em #ffe21c);
+    }
+  </style>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+    crossorigin="anonymous"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+
+  <script src="https://unpkg.com/@popperjs/core@2"></script>
+  <script src="https://unpkg.com/tippy.js@6"></script>
+  <script src="./ckeditor.js"></script>
+
+
+  <script src="./autoresize.js"></script>
+  <script src="./utils.js"></script>
+  <script src="./gateway.js"></script>
+</head>
+
+<body>
+  <div id="container">
+
+
+    <div id="titleDiv">
+      <textarea class="text" id="title"></textarea>
+    </div>
+    <div id="textDiv">
+      <div class="text" id="main"></div>
+    </div>
+
+  </div>
+
+  <div class="popupStyling">
+    <div id="popup" style="display: none">
+      <input class="input" enterkeyhint="done" type="text" placeholder="Select a command..." id="searchInput">
+
+      <hr>
+
+      <div class="results" id="suggestionContainer">
+        <!-- Suggestions will be displayed here -->
+        <ul class="list" id="suggestionList">
+          <li>
+            <div class="suggestion">
+              <div class="left-content">
+                <span>Close current file</span>
+              </div>
+              <div class="right-content">
+                <kbd>Ctrl</kbd><span> + </span><kbd>W</kbd>
+              </div>
+            </div>
+          </li>
+
+          <li>
+            <div class="suggestion">
+              <div class="left-content">
+                <span>Open file</span>
+              </div>
+              <div class="right-content">
+                <kbd>Ctrl</kbd><span> + </span><kbd>O</kbd>
+              </div>
+            </div>
+          </li>
+
+          <li>
+            <div class="suggestion">
+              <div class="left-content">
+                <span>Switch file (quick)</span>
+              </div>
+              <div class="right-content">
+                <kbd>Ctrl</kbd><span> + </span><kbd>Tab</kbd>
+              </div>
+            </div>
+          </li>
+
+          <li>
+            <div class="suggestion">
+              <div class="left-content">
+                <span>Switch focus</span>
+              </div>
+              <div class="right-content">
+                <kbd>Tab</kbd>
+              </div>
+            </div>
+          </li>
+
+          <li>
+            <div class="suggestion">
+              <div class="left-content">
+                <span>Switch file</span>
+              </div>
+              <div class="right-content">
+                <kbd>Ctrl</kbd><span> + </span><kbd>1-9</kbd>
+              </div>
+            </div>
+          </li>
+
+          <li>
+            <div class="suggestion">
+              <div class="left-content">
+                <span>New file</span>
+              </div>
+              <div class="right-content">
+                <kbd>Ctrl</kbd><span> + </span><kbd>N</kbd>
+              </div>
+            </div>
+          </li>
+
+          <li>
+            <div class="suggestion">
+              <div class="left-content">
+                <span>Command pallet</span>
+              </div>
+              <div class="right-content">
+                <kbd>Ctrl</kbd><span> + </span><kbd>P</kbd>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="navigation">
+        <kbd class="wideKbd">⬆</kbd>
+        <kbd class="wideKbd">⬇</kbd>
+        <kbd>Enter</kbd>
+        <span>- Navigation</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottomLeft">
+    <ul class="pages">
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+      <li>4</li>
+      <li class="active">5</li>
+    </ul>
+  </div>
+    <div class="bottomRight">
+      <div>
+        <span id="words">0</span>
+        <span>words</span>
+        <div style="margin-left: 5px;"></div>
+        <span id="chars">0</span>
+        <span>characters</span>
+      </div>
+    </div>
+</body>
+
+</html>
