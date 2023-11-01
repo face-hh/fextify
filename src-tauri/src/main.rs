@@ -10,6 +10,10 @@ use std::path::PathBuf;
 use serde::{Deserialize, Serialize};
 use serde_json::{json, Value};
 
+use directories::{ProjectDirs};
+use lazy_static::lazy_static;
+use std::sync::Mutex;
+
 #[derive(Serialize, Deserialize)]
 struct JsonData {
     children: Vec<Child>,
@@ -22,21 +26,44 @@ struct Child {
     path: String,
 }
 
-const PATH: &str = "C:/Users/User/Documents/GitHub/text-editor/Folder";
+lazy_static! {
+    static ref PATH: Mutex<String> = Mutex::new("C:/Users/User/Documents/GitHub/text-editor/Folder".to_string());
+}
 
 #[tauri::command]
 fn save_file(path: String, content: String) {
-    let path = PathBuf::from(PATH).join(path);
+    let path = PathBuf::from(PATH.lock().unwrap().clone()).join(path);
 
     let _ = fs::write(path, content);
     // lmao
 }
 
+fn save_config() {
+    if let Some(proj_dirs) = ProjectDirs::from("com", "Fextify", "Data") {
+        let dir = proj_dirs.data_dir();
+
+        if let Err(error) = fs::create_dir_all(&dir) {
+            println!("FATAL: COULD NOT CREATE APPDATA FOLDER, STACK: {}", error);
+        } else {
+            println!("Created config folder in AppData");
+        
+            if let Err(error2) = fs::write(PathBuf::from(&dir).join("config.json"), "{\"children\": [],\"opened\": []}") {
+                println!("FATAL: COULD NOT CREATE CONFIG IN APPDATA, STACK: {}", error2);
+            }
+        
+            let mut path = PATH.lock().unwrap();
+            *path = dir.to_str().unwrap().to_string();
+        }
+        
+    }
+}
+
+
 #[tauri::command]
 fn delete_file(path: String) -> u8 {
     delete_child(&path.replace(".md", ""));
 
-    let path = PathBuf::from(PATH).join(path);
+    let path = PathBuf::from(PATH.lock().unwrap().clone()).join(path);
 
     let _ = fs::remove_file(&path);
 
@@ -48,7 +75,7 @@ fn delete_file(path: String) -> u8 {
 #[tauri::command]
 fn read_file(path: String) -> (String, String) {
     let path_with_ext = format!("{}.md", &path);
-    let path_to_file = PathBuf::from(PATH).join(path_with_ext);
+    let path_to_file = PathBuf::from(PATH.lock().unwrap().clone()).join(path_with_ext);
 
     if let Ok(contents) = fs::read_to_string(path_to_file) {
         return (path, contents);
@@ -74,7 +101,7 @@ fn new_file() -> (String, String) {
     let id = nanoid!(15, &alphabet);
 
     let title = "Untitled ".to_owned() + &id;
-    let path = PathBuf::from(PATH).join(format!("{}.md", &title));
+    let path = PathBuf::from(PATH.lock().unwrap().clone()).join(format!("{}.md", &title));
 
     let _ = fs::write(&path, "");
 
@@ -85,7 +112,7 @@ fn new_file() -> (String, String) {
 }
 
 fn push_child(id: String, path: &String) {
-    let json_path = PathBuf::from(PATH).join("config.json");
+    let json_path = PathBuf::from(PATH.lock().unwrap().clone()).join("config.json");
     let contents = fs::read_to_string(&json_path).expect("Failed to read configuration.");
 
     let mut json_contents: Value = serde_json::from_str(&contents).expect("Failed to parse JSON");
@@ -98,12 +125,12 @@ fn push_child(id: String, path: &String) {
 
     match find_by_id(id) {
         already_exists => {
-                let cond = !already_exists.is_empty();
-                let cond2 = already_exists != "None";
-            
-                if cond && cond2 {
-                    return;
-                };
+            let cond = !already_exists.is_empty();
+            let cond2 = already_exists != "None";
+
+            if cond && cond2 {
+                return;
+            };
         }
     }
 
@@ -122,7 +149,7 @@ fn push_child(id: String, path: &String) {
 
 #[tauri::command]
 fn delete_child(path: &str) {
-    let json_path: PathBuf = PathBuf::from(PATH).join("config.json");
+    let json_path: PathBuf = PathBuf::from(PATH.lock().unwrap().clone()).join("config.json");
     let contents = fs::read_to_string(&json_path).expect("Failed to read configuration.");
 
     let mut json_contents: Value = serde_json::from_str(&contents).expect("Failed to parse JSON");
@@ -149,7 +176,7 @@ fn delete_child(path: &str) {
 
 #[tauri::command]
 fn find_by_id(id: String) -> String {
-    let json_path = PathBuf::from(PATH).join("config.json");
+    let json_path = PathBuf::from(PATH.lock().unwrap().clone()).join("config.json");
     let contents = fs::read_to_string(&json_path).expect("Failed to read configuration.");
 
     let json_contents: Value = serde_json::from_str(&contents).expect("Failed to parse JSON");
@@ -170,7 +197,7 @@ fn find_by_id(id: String) -> String {
 
 #[tauri::command]
 fn find_by_path(path: &str) -> String {
-    let json_path = PathBuf::from(PATH).join("config.json");
+    let json_path = PathBuf::from(PATH.lock().unwrap().clone()).join("config.json");
     let contents = fs::read_to_string(&json_path).expect("Failed to read configuration.");
 
     let json_contents: Value = serde_json::from_str(&contents).expect("Failed to parse JSON");
@@ -194,7 +221,7 @@ fn find_by_path(path: &str) -> String {
 fn update_opened(path: String, add: bool) -> Value {
     let child_id = find_by_path(&path);
 
-    let json_path = PathBuf::from(PATH).join("config.json");
+    let json_path = PathBuf::from(PATH.lock().unwrap().clone()).join("config.json");
     let contents = fs::read_to_string(&json_path).expect("Failed to read configuration.");
 
     let mut json_contents: Value = serde_json::from_str(&contents).expect("Failed to parse JSON");
@@ -244,10 +271,10 @@ fn open_file(path: String) -> (String, String) {
 }
 #[tauri::command]
 fn save_title(old_path: String, new_path: String) {
-    let old_path_buf = PathBuf::from(PATH).join(&old_path);
-    let new_path_buf = PathBuf::from(PATH).join(&new_path);
+    let old_path_buf = PathBuf::from(PATH.lock().unwrap().clone()).join(&old_path);
+    let new_path_buf = PathBuf::from(PATH.lock().unwrap().clone()).join(&new_path);
 
-    let path = PathBuf::from(PATH).join("config.json");
+    let path = PathBuf::from(PATH.lock().unwrap().clone()).join("config.json");
     let contents =
         String::from_utf8_lossy(&fs::read(&path).expect("Failed to read configuration."))
             .to_string();
@@ -297,7 +324,8 @@ fn save_title(old_path: String, new_path: String) {
 
 #[tauri::command]
 fn retrieve_opened() -> Value {
-    let path = PathBuf::from(PATH).join("config.json");
+    let path = PathBuf::from(PATH.lock().unwrap().clone()).join("config.json");
+
     let contents =
         String::from_utf8_lossy(&fs::read(&path).expect("Failed to read configuration."))
             .to_string();
@@ -312,6 +340,8 @@ fn retrieve_opened() -> Value {
 
 fn main() {
     // retrieve_last_opened(&config_hashmap, config_raw);
+
+    save_config();
 
     tauri::Builder::default()
         .invoke_handler(tauri::generate_handler![

@@ -7,9 +7,7 @@ A simple text editor written in Tauri, inspired by Obsidian.
 This is a **prototype**, not a fully polished version.
 
 # How to run?
-1. Please, kindly, go inside `src-tauri/src/main.rs`, locate the global "PATH" variable, and change it to your needs. I am on the edge of my mental state.
-2. Run `npm run tauri build -- --target x86_64-pc-windows-msvc` & wait for it to compile.
-3. Run the compiled executable.
+1. You have two options, either compile the program by running: `npm run tauri build -- --target x86_64-pc-windows-msvc`, or run the `main.exe` included in this folder.
 4. Press `CTRL` + `P` to open the command pallet. It will give you a good idea of what's going on. Otherwise, explore!
 
 # Known bugs
