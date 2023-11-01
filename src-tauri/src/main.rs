@@ -3,14 +3,14 @@
 
 use nanoid::nanoid;
 
-use std::fs;
+use std::{fs};
 
 use std::path::PathBuf;
 
 use serde::{Deserialize, Serialize};
 use serde_json::{json, Value};
 
-use directories::{ProjectDirs};
+use directories::ProjectDirs;
 use lazy_static::lazy_static;
 use std::sync::Mutex;
 
@@ -27,7 +27,8 @@ struct Child {
 }
 
 lazy_static! {
-    static ref PATH: Mutex<String> = Mutex::new("C:/Users/User/Documents/GitHub/text-editor/Folder".to_string());
+    static ref PATH: Mutex<String> =
+        Mutex::new("C:/Users/User/Documents/GitHub/text-editor/Folder".to_string());
 }
 
 #[tauri::command]
@@ -41,23 +42,33 @@ fn save_file(path: String, content: String) {
 fn save_config() {
     if let Some(proj_dirs) = ProjectDirs::from("com", "Fextify", "Data") {
         let dir = proj_dirs.data_dir();
+        let exists = &dir.join("config.json").exists();
 
-        if let Err(error) = fs::create_dir_all(&dir) {
-            println!("FATAL: COULD NOT CREATE APPDATA FOLDER, STACK: {}", error);
-        } else {
-            println!("Created config folder in AppData");
-        
-            if let Err(error2) = fs::write(PathBuf::from(&dir).join("config.json"), "{\"children\": [],\"opened\": []}") {
-                println!("FATAL: COULD NOT CREATE CONFIG IN APPDATA, STACK: {}", error2);
-            }
-        
+        if *exists {
             let mut path = PATH.lock().unwrap();
             *path = dir.to_str().unwrap().to_string();
+        } else {
+            if let Err(error) = fs::create_dir_all(&dir) {
+                println!("FATAL: COULD NOT CREATE APPDATA FOLDER, STACK: {}", error);
+            } else {
+                println!("Created config folder in AppData");
+
+                if let Err(error2) = fs::write(
+                    PathBuf::from(&dir).join("config.json"),
+                    "{\"children\": [],\"opened\": []}",
+                ) {
+                    println!(
+                        "FATAL: COULD NOT CREATE CONFIG IN APPDATA, STACK: {}",
+                        error2
+                    );
+                }
+
+                let mut path = PATH.lock().unwrap();
+                *path = dir.to_str().unwrap().to_string();
+            }
         }
-        
     }
 }
-
 
 #[tauri::command]
 fn delete_file(path: String) -> u8 {
