@@ -79,3 +79,7 @@ async function ask_for_file() {
 
     return;
 }
+
+function writeText(text){
+    tauri.clipboard.writeText(text);
+}

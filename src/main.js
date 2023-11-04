@@ -43,11 +43,11 @@ window.title.on('input', async () => {
 })
 
 /* ***** */
-const observer = new MutationObserver(function(mutations) {
-  mutations.forEach(function(mutation) {
+const observer = new MutationObserver(function (mutations) {
+  mutations.forEach(function (mutation) {
     if (mutation.type === "childList" || mutation.type === "characterData") {
       const content = editor.getData();
-  
+
       update_words(content);
       save(window.path, content);
     }
@@ -97,6 +97,12 @@ $('body').keydown(async e => {
     const arg = await ask_for_file();
 
     handleCommandPrompt('Open file', arg);
+  }
+
+  if (e.key === 'H' && e.ctrlKey && e.shiftKey) {
+    e.preventDefault();
+
+    handleCommandPrompt('Copy HTML output');
   }
 
   if (e.key === 'Tab' && e.ctrlKey) {

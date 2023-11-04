@@ -108,7 +108,7 @@ textarea {
 }
 
 .ck.ck-content ul,
-.ck.ck-content ul li{
+.ck.ck-content ul li {
   list-style-type: inherit;
 }
 
@@ -116,12 +116,14 @@ textarea {
   /* Default user agent stylesheet, you can change it to your needs. */
   padding-left: 40px;
 }
+
 .ck-editor__editable[role="textbox"] {
   width: 97vw;
 
   min-width: 55%;
   max-width: 55%;
 }
+
 .ck-content text {
   color: white;
 }
@@ -141,11 +143,13 @@ textarea {
 .ck-content {
   margin-top: -10px;
 }
+
 #textDisplay {
   width: 500%;
 }
 
-#textDisplay :first-child, :last-child {
+#textDisplay :first-child,
+:last-child {
   margin-top: 0;
   margin-bottom: 0;
 }
@@ -159,8 +163,15 @@ textarea {
 }
 
 @keyframes cursor-blink {
-  0%, 100% { opacity: 0; }
-  50% { opacity: 1; }
+
+  0%,
+  100% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 1;
+  }
 }
 
 #textDiv {
@@ -206,16 +217,17 @@ textarea {
 }
 
 .navigation {
-    display: flex;
-    justify-content: center;
-    padding: 10px;
-    background-color: #141414;
-    gap: 10px;
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+  background-color: #141414;
+  gap: 10px;
 }
 
 .wideKbd {
   padding: 2px 9px;
 }
+
 .suggestion {
   display: flex;
   justify-content: space-between;
@@ -270,7 +282,7 @@ hr {
   background-color: #2f2f2f;
   border: none;
 
-  
+
   position: absolute;
   top: 60px;
 }
@@ -311,14 +323,14 @@ ul {
   right: 0;
 }
 
-.bottomRight > div {
+.bottomRight>div {
   display: flex;
   flex-direction: row;
   gap: 3px;
 
   font-size: 14px;
   background-color: #1b1b1b;
-  padding:7px;
+  padding: 7px;
   padding-left: 10px;
   border-top-left-radius: 20px;
 
@@ -348,3 +360,87 @@ ul {
   background-color: #1b1b1b;
 }
 
+.toastify {
+  padding: 10px;
+  border-radius: 9px;
+  position: fixed;
+  display: flex;
+  gap: 10px;
+  right: 10px;
+  background-color: #1b1b1b;
+  align-items: center;
+
+  opacity: 0;
+  transition: all .4s cubic-bezier(.215, .61, .355, 1);
+
+  cursor: default;
+
+  text-decoration: none;
+
+  max-width: calc(50% - 20px);
+
+  z-index: 2147483647;
+}
+
+.toastify.on {
+  opacity: 1
+}
+
+.toast-close {
+  background: 0 0;
+  border: 0;
+  color: #fff;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 1em;
+  opacity: .4;
+  padding: 0 5px
+}
+
+.toastify-right {
+  right: 15px
+}
+
+.toastify-left {
+  left: 15px
+}
+
+.toastify-top {
+  top: -150px
+}
+
+.toastify-bottom {
+  bottom: -150px
+}
+
+.toastify-rounded {
+  border-radius: 25px
+}
+
+.toastify-avatar {
+  width: 1.5em;
+  height: 1.5em;
+  margin: -7px 5px;
+  border-radius: 2px
+}
+
+.toastify-center {
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  max-width: fit-content;
+  max-width: -moz-fit-content
+}
+
+@media only screen and (max-width:360px) {
+
+  .toastify-left,
+  .toastify-right {
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    max-width: fit-content
+  }
+}

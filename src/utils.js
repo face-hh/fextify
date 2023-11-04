@@ -3,10 +3,13 @@ async function handleCommandPrompt(text, args) {
     switch (text) {
         case 'New file':
             await manage_new_file();
+            toast("New file created.");
 
             break;
         case 'Close current file':
             await close_file();
+            toast("Current file closed.");
+
             break;
 
         case 'Command pallet':
@@ -22,11 +25,28 @@ async function handleCommandPrompt(text, args) {
             break;
         case 'Open file':
             handle_open_file(args);
+            toast("File opening initiated.");
+
             break;
         case 'Switch file (quick)':
             handle_switch_quick();
             break;
+        case 'Copy HTML output':
+            writeText(document.querySelector('.ck-content').innerHTML);
+            toast("HTML output copied to clipboard");
+
+            break;
     }
+}
+
+function toast(message, duration = 2000) {
+    Toastify({
+        text: '<img width="20" height="20" src="./assets/exclamation.png"/>' + message,
+        duration: duration,
+        close: false,
+        stopOnFocus: true,
+        escapeMarkup: false,
+    }).showToast();
 }
 
 async function handle_switch_quick() {
