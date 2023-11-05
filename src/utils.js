@@ -121,7 +121,7 @@ async function get_tabs() {
 
 function update_words(content) {
     const chars = content.length;
-    const words = content.match(/(\w+)/g)?.length || 0
+    const words = content.match(/([^ ]+)/g)?.length || 0
 
     $('#chars').text(chars?.toLocaleString());
     $('#words').text(words?.toLocaleString());
