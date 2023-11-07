@@ -4,8 +4,9 @@
   "version": "1.0.3",
   "type": "module",
   "scripts": {
-    "tauri": "tauri"
+    "tauri": "tauri",
     "build": "cd src-tauri && cargo build"
+    "run": "cd src-tauri && cargo run"
   },
   "devDependencies": {
     "@tauri-apps/cli": "^1.5.0"
