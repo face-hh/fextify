@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "tauri": "tauri"
+    "build": "cd src-tauri && cargo build"
   },
   "devDependencies": {
     "@tauri-apps/cli": "^1.5.0"
