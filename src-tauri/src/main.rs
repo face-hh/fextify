@@ -3,7 +3,7 @@
 
 use nanoid::nanoid;
 
-use std::{fs};
+use std::fs;
 
 use std::path::PathBuf;
 
