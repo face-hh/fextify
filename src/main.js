@@ -70,65 +70,45 @@ $('.pages').on('click', (event) => {
   switch_tab(target);
 });
 
-isMacOS = ()=>navigator.platform.toLowerCase().includes('mac')
+isMacOS = ()=>navigator.userAgent.toLowerCase().includes('mac')
 
-let metaKeyPressed = false
-
-$('body').keydown(async e => {
-  if (isMacOS() && e.key === "Meta") {
-    metaKeyPressed = true
-  }
-  
-  if (e.key === 'p' && isMacOS() ? metaKeyPressed : e.ctrlKey) {
+$('body').keydown(async e => {  
+  if (e.key === 'p' && isMacOS() ? e.metaKey : e.ctrlKey) {
     e.preventDefault();
-
-    metaKeyPressed = false
 
     commandPrompt();
   }
-  if (e.key === 'w' && isMacOS() ? metaKeyPressed : e.ctrlKey) {
+  if (e.key === 'w' && isMacOS() ? e.metaKey : e.ctrlKey) {
     e.preventDefault();
-
-    metaKeyPressed = false
 
     handleCommandPrompt('Close current file');
   }
-  if (/^[1-9]*$/.test(e.key) && isMacOS() ? metaKeyPressed : e.ctrlKey) {
+  if (/^[1-9]*$/.test(e.key) && isMacOS() ? e.metaKey : e.ctrlKey) {
     e.preventDefault();
-
-    metaKeyPressed = false
 
     handleCommandPrompt('Switch file', e.key);
   }
-  if (e.key === 'n' && isMacOS() ? metaKeyPressed : e.ctrlKey) {
+  if (e.key === 'n' && isMacOS() ? e.metaKey : e.ctrlKey) {
     e.preventDefault();
-
-    metaKeyPressed = false
 
     handleCommandPrompt('New file');
   }
-  if (e.key === 'o' && isMacOS() ? metaKeyPressed : e.ctrlKey) {
+  if (e.key === 'o' && isMacOS() ? e.metaKey : e.ctrlKey) {
     e.preventDefault();
-
-    metaKeyPressed = false
 
     const arg = await ask_for_file();
 
     handleCommandPrompt('Open file', arg);
   }
 
-  if (e.key === 'H' && isMacOS() ? metaKeyPressed : e.ctrlKey && e.shiftKey) {
+  if (e.key === 'H' && (isMacOS() ? e.metaKey : e.ctrlKey) && e.shiftKey) {
     e.preventDefault();
-
-    metaKeyPressed = false
 
     handleCommandPrompt('Copy HTML output');
   }
 
-  if (e.key === 'Tab' && isMacOS() ? metaKeyPressed : e.ctrlKey) {
+  if (e.key === 'Tab' && isMacOS() ? e.metaKey : e.ctrlKey) {
     e.preventDefault();
-
-    metaKeyPressed = false
 
     handleCommandPrompt('Switch file (quick)');
   }
