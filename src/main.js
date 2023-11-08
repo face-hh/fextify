@@ -70,43 +70,65 @@ $('.pages').on('click', (event) => {
   switch_tab(target);
 });
 
+isMacOS = ()=>navigator.platform.toLowerCase().includes('mac')
+
+let metaKeyPressed = false
+
 $('body').keydown(async e => {
-  if (e.key === 'p' && e.ctrlKey) {
+  if (isMacOS() && e.key === "Meta") {
+    metaKeyPressed = true
+  }
+  
+  if (e.key === 'p' && isMacOS() ? metaKeyPressed : e.ctrlKey) {
     e.preventDefault();
+
+    metaKeyPressed = false
 
     commandPrompt();
   }
-  if (e.key === 'w' && e.ctrlKey) {
+  if (e.key === 'w' && isMacOS() ? metaKeyPressed : e.ctrlKey) {
     e.preventDefault();
+
+    metaKeyPressed = false
 
     handleCommandPrompt('Close current file');
   }
-  if (/^[1-9]*$/.test(e.key) && e.ctrlKey) {
+  if (/^[1-9]*$/.test(e.key) && isMacOS() ? metaKeyPressed : e.ctrlKey) {
     e.preventDefault();
+
+    metaKeyPressed = false
 
     handleCommandPrompt('Switch file', e.key);
   }
-  if (e.key === 'n' && e.ctrlKey) {
+  if (e.key === 'n' && isMacOS() ? metaKeyPressed : e.ctrlKey) {
     e.preventDefault();
+
+    metaKeyPressed = false
 
     handleCommandPrompt('New file');
   }
-  if (e.key === 'o' && e.ctrlKey) {
+  if (e.key === 'o' && isMacOS() ? metaKeyPressed : e.ctrlKey) {
     e.preventDefault();
+
+    metaKeyPressed = false
 
     const arg = await ask_for_file();
 
     handleCommandPrompt('Open file', arg);
   }
 
-  if (e.key === 'H' && e.ctrlKey && e.shiftKey) {
+  if (e.key === 'H' && isMacOS() ? metaKeyPressed : e.ctrlKey && e.shiftKey) {
     e.preventDefault();
+
+    metaKeyPressed = false
 
     handleCommandPrompt('Copy HTML output');
   }
 
-  if (e.key === 'Tab' && e.ctrlKey) {
+  if (e.key === 'Tab' && isMacOS() ? metaKeyPressed : e.ctrlKey) {
     e.preventDefault();
+
+    metaKeyPressed = false
 
     handleCommandPrompt('Switch file (quick)');
   }
