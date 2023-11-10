@@ -5,7 +5,7 @@
   font-size: 20px;
   font-weight: 400;
 
-  background-color: #282c34;
+  background-color: #0f0f0f;
   color: #f6f6f6;
 
   line-height: 24px;
@@ -54,7 +54,7 @@ a[href] {
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: #282c34;
+  background: #0f0f0f;
 }
 
 /* Handle */

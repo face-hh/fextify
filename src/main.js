@@ -70,30 +70,39 @@ $('.pages').on('click', (event) => {
   switch_tab(target);
 });
 
-isMacOS = ()=>navigator.userAgent.toLowerCase().includes('mac')
+const isMac = navigator.userAgent.toLowerCase().includes('mac');
 
-$('body').keydown(async e => {  
-  if (e.key === 'p' && isMacOS() ? e.metaKey : e.ctrlKey) {
+$('body').keydown(async e => {
+  const ctrlKey = isMac ? e.metaKey : e.ctrlKey;
+console.log(e.key)
+  if (e.key === 'p' && ctrlKey) {
     e.preventDefault();
 
     commandPrompt();
   }
-  if (e.key === 'w' && isMacOS() ? e.metaKey : e.ctrlKey) {
+
+  if (e.key === 'Escape') {
+    e.preventDefault();
+
+    commandPrompt(true);
+  }
+
+  if (e.key === 'w' && ctrlKey) {
     e.preventDefault();
 
     handleCommandPrompt('Close current file');
   }
-  if (/^[1-9]*$/.test(e.key) && isMacOS() ? e.metaKey : e.ctrlKey) {
+  if (/^[1-9]*$/.test(e.key) && ctrlKey) {
     e.preventDefault();
 
     handleCommandPrompt('Switch file', e.key);
   }
-  if (e.key === 'n' && isMacOS() ? e.metaKey : e.ctrlKey) {
+  if (e.key === 'n' && ctrlKey) {
     e.preventDefault();
 
     handleCommandPrompt('New file');
   }
-  if (e.key === 'o' && isMacOS() ? e.metaKey : e.ctrlKey) {
+  if (e.key === 'o' && ctrlKey) {
     e.preventDefault();
 
     const arg = await ask_for_file();
@@ -101,13 +110,13 @@ $('body').keydown(async e => {
     handleCommandPrompt('Open file', arg);
   }
 
-  if (e.key === 'H' && (isMacOS() ? e.metaKey : e.ctrlKey) && e.shiftKey) {
+  if (e.key === 'H' && ctrlKey && e.shiftKey) {
     e.preventDefault();
 
     handleCommandPrompt('Copy HTML output');
   }
 
-  if (e.key === 'Tab' && isMacOS() ? e.metaKey : e.ctrlKey) {
+  if (e.key === 'Tab' && ctrlKey) {
     e.preventDefault();
 
     handleCommandPrompt('Switch file (quick)');
@@ -127,10 +136,12 @@ $('body').keydown(async e => {
   }
 })
 
-async function commandPrompt() {
+async function commandPrompt(forceClose) {
   let isDisabled = popup.prop('disabled');
 
   if (isDisabled === undefined) isDisabled = true;
+  if (forceClose) isDisabled = false;
+
 
   const fadeAction = isDisabled ? 'fadeIn' : 'fadeOut'
 
