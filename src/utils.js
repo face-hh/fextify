@@ -37,7 +37,8 @@ async function handleCommandPrompt(text, args) {
 
             break;
         case 'Change theme':
-            animateDiv(undefined, window.css);
+            window.animateDiv(true, $('#popup'))
+            window.animateDiv(undefined, $('#cssStyling'));
     }
 }
 

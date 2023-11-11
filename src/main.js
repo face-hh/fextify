@@ -146,12 +146,10 @@ $('body').keydown(async e => {
     if (content === 'Switch file') {
       handleCommandPrompt(content, 1); // default to switch to 1st tab
     } else handleCommandPrompt(content);
-
-    animateDiv();
   }
 })
 
-async function animateDiv(forceClose, el) {
+window.animateDiv = async function (forceClose, el) {
   let isDisabled = el.prop('disabled');
 
   if (isDisabled === undefined) isDisabled = true;
