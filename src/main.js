@@ -84,6 +84,7 @@ themeInput.keydown(e => {
 
 $('body').keydown(async e => {
   const ctrlKey = isMac ? e.metaKey : e.ctrlKey;
+  const altKey = isMac ? e.key === 'ß' : e.altKey;
 
   if (e.key === 'p' && ctrlKey) {
     e.preventDefault();
@@ -95,6 +96,7 @@ $('body').keydown(async e => {
     e.preventDefault();
 
     animateDiv(true, popup); // force exit command pallet
+    animateDiv(true, $('#cssStyling')); // force exit themes
   }
 
   if (e.key === 'w' && ctrlKey) {
@@ -131,7 +133,7 @@ $('body').keydown(async e => {
 
     handleCommandPrompt('Switch file (quick)');
   }
-  if (e.key === 's' && ctrlKey && e.altKey) {
+  if (e.key === 's' && ctrlKey && altKey) {
     e.preventDefault();
 
     animateDiv(undefined, css);
