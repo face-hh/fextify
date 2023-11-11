@@ -3,7 +3,6 @@ const display = document.getElementById('textDisplay');
 
 const cursor = document.getElementById("cursor");
 
-
 let tabs_ = await get_tabs();
 update_active(tabs_.length);
 
@@ -13,8 +12,13 @@ if (info[0] === 'None') info[0] = '', info[1] = ''
 
 window.title = $('#title');
 window.main = $('#main');
+window.themeInput = $('#themeInput');
+window.css = $('#cssStyling');
 
 const popup = $('#popup');
+
+let theme = await get_theme();
+if(theme) changeTheme(theme), window.themeInput.val(theme);
 
 window.path = info[0]
 update_words(info[1]);
@@ -72,19 +76,25 @@ $('.pages').on('click', (event) => {
 
 const isMac = navigator.userAgent.toLowerCase().includes('mac');
 
+themeInput.keydown(e => {
+  if(e.key === "Enter"){
+    changeTheme(themeInput.val())
+  }
+}) 
+
 $('body').keydown(async e => {
   const ctrlKey = isMac ? e.metaKey : e.ctrlKey;
-console.log(e.key)
+
   if (e.key === 'p' && ctrlKey) {
     e.preventDefault();
 
-    commandPrompt();
+    animateDiv(undefined, popup); // handle command pallet
   }
 
   if (e.key === 'Escape') {
     e.preventDefault();
 
-    commandPrompt(true);
+    animateDiv(true, popup); // force exit command pallet
   }
 
   if (e.key === 'w' && ctrlKey) {
@@ -121,6 +131,11 @@ console.log(e.key)
 
     handleCommandPrompt('Switch file (quick)');
   }
+  if (e.key === 's' && ctrlKey && e.altKey) {
+    e.preventDefault();
+
+    animateDiv(undefined, css);
+  }
 
   const focused = document.querySelector('.focused');
 
@@ -132,30 +147,29 @@ console.log(e.key)
       handleCommandPrompt(content, 1); // default to switch to 1st tab
     } else handleCommandPrompt(content);
 
-    commandPrompt();
+    animateDiv();
   }
 })
 
-async function commandPrompt(forceClose) {
-  let isDisabled = popup.prop('disabled');
+async function animateDiv(forceClose, el) {
+  let isDisabled = el.prop('disabled');
 
   if (isDisabled === undefined) isDisabled = true;
   if (forceClose) isDisabled = false;
 
-
   const fadeAction = isDisabled ? 'fadeIn' : 'fadeOut'
 
   const windowHeight = $(window).height();
-  const popupHeight = popup.outerHeight();
+  const popupHeight = el.outerHeight();
 
   const scrollPosition = $(window).scrollTop();
 
   const topPosition = scrollPosition + (windowHeight - popupHeight) / 2;
 
-  popup.css('top', topPosition);
+  el.css('top', topPosition);
 
-  popup[fadeAction](250, function () {
-    popup.prop('disabled', !isDisabled);
+  el[fadeAction](250, function () {
+    el.prop('disabled', !isDisabled);
 
     if (isDisabled) {
       $('.input').focus();
@@ -233,16 +247,3 @@ function updatePromptHeight() {
 }
 
 updatePromptHeight();
-
-// function updateLineNumbers() {
-//   let content = '';
-
-//   let lines = textDiv.value.split('\n')
-//   let linesCount = lines.length;
-
-//   for (let i = 0; i < linesCount; i++) {
-//     content += `<div>${i + 1}</div>`
-//   }
-
-//   lineNumbersDiv.innerHTML = content;
-// }

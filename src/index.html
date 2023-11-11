@@ -6,13 +6,8 @@
   <link rel="stylesheet" href="styles.css" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tauri App</title>
+  <title>Fextify</title>
   <script type="module" src="/main.js" defer></script>
-  <style>
-    .logo.vanilla:hover {
-      filter: drop-shadow(0 0 2em #ffe21c);
-    }
-  </style>
 
   <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
     crossorigin="anonymous"></script>
@@ -20,7 +15,7 @@
 
   <script src="https://unpkg.com/@popperjs/core@2"></script>
   <script src="https://unpkg.com/tippy.js@6"></script>
-  
+
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
   <script src="./ckeditor.js"></script>
@@ -42,6 +37,19 @@
       <div class="text" id="main"></div>
     </div>
 
+  </div>
+
+  <div class="popupStyling">
+    <div id="cssStyling" style="display: none">
+      <h1>Themes</h1>
+
+      <div id="cssGrid">
+        <div class="theme" style="background-color: #0f0f0f; color: white;" onclick="changeTheme('/themes/default.css')">Default</div>
+        <div class="theme" style="background-color: #e8e1d2; color: #0f0f0f;" onclick="changeTheme('/themes/coffee.css')">Coffee</div>
+      </div>
+
+      <input id="themeInput" class="input" enterkeyhint="done" type="text" placeholder="URL..." style="padding: 10px; margin-top: 15px; width: 350px">
+    </div>
   </div>
 
   <div class="popupStyling">
@@ -140,6 +148,18 @@
               </div>
             </div>
           </li>
+
+          <li>
+            <div class="suggestion">
+              <div class="left-content">
+                <span>Change theme</span>
+              </div>
+              <div class="right-content">
+                <kbd>Ctrl</kbd><span> + </span><kbd>Alt</kbd><span> + </span><kbd>S</kbd>
+              </div>
+            </div>
+          </li>
+
         </ul>
       </div>
 
@@ -161,15 +181,15 @@
       <li class="active">5</li>
     </ul>
   </div>
-    <div class="bottomRight">
-      <div>
-        <span id="words">0</span>
-        <span>words</span>
-        <div style="margin-left: 5px;"></div>
-        <span id="chars">0</span>
-        <span>characters</span>
-      </div>
+  <div class="bottomRight">
+    <div>
+      <span id="words">0</span>
+      <span>words</span>
+      <div style="margin-left: 5px;"></div>
+      <span id="chars">0</span>
+      <span>characters</span>
     </div>
+  </div>
 </body>
 
 </html>

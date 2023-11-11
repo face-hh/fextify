@@ -55,7 +55,7 @@ fn save_config() {
 
                 if let Err(error2) = fs::write(
                     PathBuf::from(&dir).join("config.json"),
-                    "{\"children\": [],\"opened\": []}",
+                    "{\"children\": [],\"opened\": [],\"theme\": \"/themes/default.css\"}",
                 ) {
                     println!(
                         "FATAL: COULD NOT CREATE CONFIG IN APPDATA, STACK: {}",
@@ -156,6 +156,34 @@ fn push_child(id: String, path: &String) {
 
     // Write the updated JSON back to the file
     fs::write(&json_path, updated_json).expect("Failed to write configuration.");
+}
+
+#[tauri::command]
+fn set_theme(name: String) {
+    let json_path = PathBuf::from(PATH.lock().unwrap().clone()).join("config.json");
+    let contents = fs::read_to_string(&json_path).expect("Failed to read configuration for theme.");
+
+    let mut json_contents: Value = serde_json::from_str(&contents).expect("Failed to parse JSON");
+
+    json_contents["theme"] = Value::String(name);
+
+    // Serialize the modified JSON back to a string
+    let updated_json =
+        serde_json::to_string_pretty(&json_contents).expect("Failed to serialize JSON");
+
+    // Write the updated JSON back to the file
+    fs::write(&json_path, updated_json).expect("Failed to write configuration for theme.");
+}
+
+#[tauri::command]
+fn get_theme() -> String {
+    let json_path = PathBuf::from(PATH.lock().unwrap().clone()).join("config.json");
+    let contents = fs::read_to_string(&json_path).expect("Failed to read configuration for theme.");
+
+    let json_contents: Value = serde_json::from_str(&contents).expect("Failed to parse JSON");
+    let res = &json_contents["theme"].as_str().unwrap();
+
+    res.to_string()
 }
 
 #[tauri::command]
@@ -367,7 +395,9 @@ fn main() {
             retrieve_opened,
             read_file_by_id,
             open_file,
-            delete_child
+            delete_child,
+            set_theme,
+            get_theme
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

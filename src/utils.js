@@ -36,6 +36,8 @@ async function handleCommandPrompt(text, args) {
             toast("HTML output copied to clipboard");
 
             break;
+        case 'Change theme':
+            animateDiv(undefined, window.css);
     }
 }
 
@@ -231,4 +233,20 @@ async function delete_tab(target) {
 
     await manage_tabs(tabs_);
     await update_active(next);
+}
+
+function changeTheme(cssUrl) {
+    console.log(cssUrl)
+    const linkElement = $('<link>');
+    linkElement.attr('rel', 'stylesheet');
+    linkElement.attr('href', cssUrl);
+
+    $('link[data-theme]').remove();
+
+    linkElement.attr('data-theme', 'dynamic-theme');
+
+    $('head').append(linkElement);
+
+    set_theme(cssUrl);
+    window.themeInput.val(cssUrl);
 }

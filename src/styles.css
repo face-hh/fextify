@@ -154,26 +154,6 @@ textarea {
   margin-bottom: 0;
 }
 
-#cursor {
-  display: inline-block;
-  background-color: black;
-  width: 2px;
-  height: 20px;
-  animation: cursor-blink 1s step-end infinite;
-}
-
-@keyframes cursor-blink {
-
-  0%,
-  100% {
-    opacity: 0;
-  }
-
-  50% {
-    opacity: 1;
-  }
-}
-
 #textDiv {
   margin-bottom: 400px;
   display: flex;
@@ -443,4 +423,45 @@ ul {
     right: 0;
     max-width: fit-content
   }
+}
+
+#cssStyling {
+  padding: 20px;
+
+  display: flex;
+  align-items: center;
+
+  flex-direction: column;
+  border-radius: 12px;
+  background-color: #171717;
+  box-shadow: 0px 1.8px 7.3px rgba(0, 0, 0, 0.071),
+    0px 6.3px 24.7px rgba(0, 0, 0, 0.112),
+    0px 30px 90px rgba(0, 0, 0, 0.2);
+  border: 1 solid #915d5d;
+  z-index: 1;
+  position: absolute;
+  top: 80px;
+  width: 400px;
+  max-width: 80vw;
+  max-height: 70vh;
+  overflow: hidden;
+}
+
+#cssGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.theme {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  width: 80px;
+  height: 40px;
+  background-color: white;
+  border-radius: 20px;
+
+  cursor: pointer;
 }
