@@ -181,9 +181,14 @@ fn get_theme() -> String {
     let contents = fs::read_to_string(&json_path).expect("Failed to read configuration for theme.");
 
     let json_contents: Value = serde_json::from_str(&contents).expect("Failed to parse JSON");
-    let res = &json_contents["theme"].as_str().unwrap();
 
-    res.to_string()
+    match json_contents["theme"].as_str() {
+        Some(res) => res.to_string(),
+        None => {
+            set_theme("themes/default.css".to_string());
+            "themes/default.css".to_string()
+        }
+    }
 }
 
 #[tauri::command]
