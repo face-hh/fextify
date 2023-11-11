@@ -84,7 +84,6 @@ themeInput.keydown(e => {
 
 $('body').keydown(async e => {
   const ctrlKey = isMac ? e.metaKey : e.ctrlKey;
-  const altKey = isMac ? e.key === 'ß' : e.altKey;
 
   if (e.key === 'p' && ctrlKey) {
     e.preventDefault();
@@ -133,7 +132,7 @@ $('body').keydown(async e => {
 
     handleCommandPrompt('Switch file (quick)');
   }
-  if (e.key === 's' && ctrlKey && altKey) {
+  if (e.code === 'KeyS' && ctrlKey && e.altKey) {
     e.preventDefault();
 
     animateDiv(undefined, css);
