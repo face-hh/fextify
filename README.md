@@ -28,6 +28,8 @@ NOTE: if you run into any compilation error you can always debug the error with 
 2. Press `CTRL` + `P` to open the command pallet. It will give you a good idea of what's going on. Otherwise, explore!
 
 # Themes
+![image](https://github.com/face-hh/fextify/assets/69168154/18754f26-206d-4152-87df-f7d865ac1e20)
+
 ### Premade
 You can press `CTRL` + `ALT` + `S` to open the Theme Selector.
 
