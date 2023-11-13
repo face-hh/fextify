@@ -61,7 +61,7 @@ editor.setData(info[1]);
 
 autosize.update(title);
 
-window.title.addEventListener("input", async (event) => {
+window.title.on("input", async () => {
   const encodedTitle = encodeURIComponent(window.title.val());
 
   save_title(window.path, encodedTitle);
