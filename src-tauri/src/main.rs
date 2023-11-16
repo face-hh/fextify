@@ -51,7 +51,7 @@ fn save_config() {
             if let Err(error) = fs::create_dir_all(&dir) {
                 println!("FATAL: COULD NOT CREATE APPDATA FOLDER, STACK: {}", error);
             } else {
-                println!("Created config folder in AppData");
+                println!("Created config folder in AppData: {:?}", &dir.as_os_str());
 
                 if let Err(error2) = fs::write(
                     PathBuf::from(&dir).join("config.json"),
