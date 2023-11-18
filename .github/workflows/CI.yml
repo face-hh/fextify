@@ -24,6 +24,8 @@ jobs:
           profile: minimal
           override: true
 
+      - name: cd src-tauri
+
       - name: cargo fmt -- --check
         uses: actions-rs/cargo@v1
         with:
