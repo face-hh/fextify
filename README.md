@@ -27,9 +27,9 @@ Note: You might need to make them executable by running `chmod +x fextify.AppIma
 
 # Manual compilation
 
-For manual compilation run `npm run tauri build -- --target x86_64-pc-windows-msvc` on Windows, or `npm tauri build` on GNU/Linux.
+For manual compilation run `npm run tauri build -- --target x86_64-pc-windows-msvc` on Windows, or `npm run tauri build` on GNU/Linux.
 
-NOTE: if you run into any compilation error you can always debug the error with `pnpm tauri build --verbose`.
+NOTE: if you run into any compilation error you can always debug the error with `pnpm run tauri build --verbose`.
 
 # On first startup
 
