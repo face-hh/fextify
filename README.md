@@ -11,7 +11,7 @@ This is a **prototype**, not a fully polished version.
 
 ## Windows
 
-Run the `fextify.exe` included in the [releases section](https://github.com/face-hh/fextify/releases).
+Run the `fextify_[version]_x64_en-US.msi` msi installer or run the `fextify_[version]_x64-setup.exe` installer included in the [releases section](https://github.com/face-hh/fextify/releases).
 
 ## GNU/Linux
 
