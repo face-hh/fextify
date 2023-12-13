@@ -1,0 +1,123 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;700&display=swap');
+
+* {
+    font-family: 'Fira Code', monospace!important;
+}
+:root {
+    --text-color: white;
+    
+    background-color: #111;
+    color: var(--text-color);
+
+    --ck-color-base-background: #454141 !important;
+    --ck-color-base-border: #2f2f2f !important;
+
+    --ck-color-base-focus: #2f2f2f !important;
+
+    --ck-color-button-default-active-background: #202020 !important;
+    --ck-color-button-default-hover-background: #202020 !important;
+
+    --ck-color-button-on-color: #2f2f2f !important;
+    --ck-color-upload-bar-background: #2f2f2f !important;
+    --ck-color-focus-border: #2f2f2f !important;
+    --ck-color-focus-outer-shadow: #2f2f2f !important;
+
+    --ck-color-base-text: #e5e5e5 !important;
+
+    --ck-color-base-active: none !important;
+    --ck-color-base-active-focus: none !important;
+
+    --ck-color-link-default: #009DC9 !important;
+
+    --ck-focus-ring: none !important;
+    --ck-border-radius: 10px !important;
+}
+
+::selection {
+    background: #e8e1d24d;
+}
+
+.ck-content text {
+    color: var(--text-color);
+}
+
+.ck ck-button__label {
+    color: var(--text-color);
+}
+
+#popup {
+    background-color: #0f0e0e;
+    box-shadow: 0px 1.8px 7.3px rgba(0, 0, 0, 0.071),
+        0px 6.3px 24.7px rgba(0, 0, 0, 0.112),
+        0px 30px 90px rgba(0, 0, 0, 0.2);
+}
+
+.focused {
+    background-color: #000000;
+}
+
+.navigation {
+    background-color: royalblue;
+}
+
+kbd {
+    background-color: dodgerblue;
+    border: 1px solid black;
+    box-shadow:
+        0 1px 1px rgba(0, 0, 0, 0.2),
+        0 2px 0 0 rgba(26, 34, 182, 0.7) inset;
+    color: #f8f3f3;
+}
+
+input {
+    background-color: black;
+    color: white;
+    border: 1px solid #ffffff1a;
+}
+
+hr {
+    background-color: paleturquoise;
+}
+
+.text {
+    border: 1px solid #ffffff1a;
+    /* background-color: #222; */
+    border-radius: .3em!important;
+
+    color: var(--text-color);
+    margin-bottom: 1em!important;
+}
+
+.bottomRight>div {
+    background-color: royalblue;
+}
+
+
+
+.active {
+    color: white!important;
+    background-color: #222!important;
+}
+
+.pages {
+    box-shadow: none!important;
+}
+.pages li {
+    
+    border: 1px solid #ffffff1a;
+    
+
+    color: grey ;
+    background-color: #333;
+}
+
+.toastify {
+    background-color: rgb(0, 128, 171);
+}
+
+#cssStyling {
+    background-color: black;
+    box-shadow: 0px 1.8px 7.3px rgba(0, 0, 0, 0.071),
+        0px 6.3px 24.7px rgba(0, 0, 0, 0.112),
+        0px 30px 90px rgba(0, 0, 0, 0.2);
+}
