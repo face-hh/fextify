@@ -7,11 +7,16 @@ on:
       - main
     tags:
       - 'v*.*.*'
-
+    
 jobs:
   style:
     name: Check Style
     runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: ./src-tauri
+        
     steps:
       - name: Checkout
         uses: actions/checkout@v1
@@ -23,20 +28,19 @@ jobs:
           components: rustfmt
           profile: minimal
           override: true
-
-      - name: cd src-tauri
-
-      - name: cargo fmt -- --check
-        uses: actions-rs/cargo@v1
-        with:
-          command: fmt
-          args: --all -- --check
-
+          
+      - name: Cargo Check
+        run: |
+          cargo fmt -- --check
 
   test:
     name: Test
     needs: [style]
     runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: src-tauri
 
     strategy:
       matrix:
@@ -49,6 +53,14 @@ jobs:
             benches: true
 
     steps:
+      - name: Setup Env
+        shell: bash
+        run: |
+          apt update
+          apt install apt-file
+          apt-file update
+          apt-file search gdk-3.0
+    
       - name: Checkout
         uses: actions/checkout@v1
 
@@ -60,28 +72,28 @@ jobs:
           override: true
 
       - name: Build debug
-        uses: actions-rs/cargo@v1
-        with:
-          command: build
-          args: ${{ matrix.features }}
+        run: |
+          cargo build
 
       - name: Test
-        uses: actions-rs/cargo@v1
-        with:
-          command: test
-          args: ${{ matrix.features }}
+        run: |
+          cargo test
 
       - name: Test all benches
         if: matrix.benches
-        uses: actions-rs/cargo@v1
-        with:
-          command: test
-          args: --benches ${{ matrix.features }}
+        run: |
+          cargo test --benches
+  
   deploy:
     name: deploy
     needs: [test]
     if: startsWith(github.ref, 'refs/tags/')
     runs-on: ubuntu-latest
+    
+    defaults:
+      run:
+        working-directory: ./src-tauri
+    
     strategy: 
       matrix:
         target: [ aarch64-unknown-linux-gnu, armv7-unknown-linux-gnueabihf, i686-unknown-linux-gnu, i686-unknown-linux-musl, mips-unknown-linux-gnu, mips64-unknown-linux-gnuabi64, mips64el-unknown-linux-gnuabi64, mipsel-unknown-linux-gnu, powerpc-unknown-linux-gnu, powerpc64-unknown-linux-gnu, powerpc64le-unknown-linux-gnu,           arm-unknown-linux-gnueabi          ,x86_64-unknown-linux-gnu           ,x86_64-unknown-linux-musl]
@@ -97,11 +109,8 @@ jobs:
           target: ${{ matrix.target }}
 
       - name: Build target
-        uses: actions-rs/cargo@v1
-        with:
-          use-cross: true
-          command: build
-          args: --release --target ${{ matrix.target }}
+        run: |
+          cargo build --release --target ${{ matrix.target }}
 
       - name: Package
         shell: bash

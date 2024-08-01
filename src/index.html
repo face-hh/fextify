@@ -9,13 +9,12 @@
   <title>Fextify</title>
   <script type="module" src="/main.js" defer></script>
 
-  <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
-    crossorigin="anonymous"></script>
+  <script src="jquery-3.7.1.min.js"></script>
 
-  <script src="https://unpkg.com/@popperjs/core@2"></script>
-  <script src="https://unpkg.com/tippy.js@6"></script>
+  <script src="popper.min.js"></script>
+  <script src="tippy-bundle.umd.min.js"></script>
 
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+  <script type="text/javascript" src="toastify-js.js"></script>
 
   <script src="./ckeditor.js"></script>
 
@@ -42,7 +41,7 @@
     <div id="cssStyling" style="display: none">
       <h1>Themes</h1>
 
-      <div id="cssGrid">
+      <div id="cssGrid" style="overflow-x: auto;">
         <div class="theme" style="background-color: #0f0f0f; color: white;" onclick="changeTheme('/themes/default.css')">Default</div>
         <div class="theme" style="background-color: #e8e1d2; color: #0f0f0f;" onclick="changeTheme('/themes/coffee.css')">Coffee</div>
       </div>
@@ -60,105 +59,7 @@
       <div class="results" id="suggestionContainer">
         <!-- Suggestions will be displayed here -->
         <ul class="list" id="suggestionList">
-          <li>
-            <div class="suggestion">
-              <div class="left-content">
-                <span>Close current file</span>
-              </div>
-              <div class="right-content">
-                <kbd>Ctrl</kbd><span> + </span><kbd>W</kbd>
-              </div>
-            </div>
-          </li>
-
-          <li>
-            <div class="suggestion">
-              <div class="left-content">
-                <span>Open file</span>
-              </div>
-              <div class="right-content">
-                <kbd>Ctrl</kbd><span> + </span><kbd>O</kbd>
-              </div>
-            </div>
-          </li>
-
-          <li>
-            <div class="suggestion">
-              <div class="left-content">
-                <span>Switch file (quick)</span>
-              </div>
-              <div class="right-content">
-                <kbd>Ctrl</kbd><span> + </span><kbd>Tab</kbd>
-              </div>
-            </div>
-          </li>
-
-          <li>
-            <div class="suggestion">
-              <div class="left-content">
-                <span>Switch focus</span>
-              </div>
-              <div class="right-content">
-                <kbd>Tab</kbd>
-              </div>
-            </div>
-          </li>
-
-          <li>
-            <div class="suggestion">
-              <div class="left-content">
-                <span>Switch file</span>
-              </div>
-              <div class="right-content">
-                <kbd>Ctrl</kbd><span> + </span><kbd>1-9</kbd>
-              </div>
-            </div>
-          </li>
-
-          <li>
-            <div class="suggestion">
-              <div class="left-content">
-                <span>New file</span>
-              </div>
-              <div class="right-content">
-                <kbd>Ctrl</kbd><span> + </span><kbd>N</kbd>
-              </div>
-            </div>
-          </li>
-
-          <li>
-            <div class="suggestion">
-              <div class="left-content">
-                <span>Command pallet</span>
-              </div>
-              <div class="right-content">
-                <kbd>Ctrl</kbd><span> + </span><kbd>P</kbd>
-              </div>
-            </div>
-          </li>
-
-          <li>
-            <div class="suggestion">
-              <div class="left-content">
-                <span>Copy HTML output</span>
-              </div>
-              <div class="right-content">
-                <kbd>Ctrl</kbd><span> + </span><kbd>Shift</kbd><span> + </span><kbd>H</kbd>
-              </div>
-            </div>
-          </li>
-
-          <li>
-            <div class="suggestion">
-              <div class="left-content">
-                <span>Change theme</span>
-              </div>
-              <div class="right-content">
-                <kbd>Ctrl</kbd><span> + </span><kbd>Alt</kbd><span> + </span><kbd>S</kbd>
-              </div>
-            </div>
-          </li>
-
+          <!-- Data will render here -->
         </ul>
       </div>
 

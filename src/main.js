@@ -25,6 +25,55 @@ update_words(info[1]);
 
 autosize(window.title);
 
+const shortCutList = [
+  {
+    // use the comment above to understand what each key does
+    description: "Close current file",
+    specialKeys: ["Ctrl"],
+    inputKey: "W",
+  },
+  {
+    description: "Open file",
+    specialKeys: ["Ctrl"],
+    inputKey: "O",
+  },
+  {
+    description: "Switch file (quick)",
+    specialKeys: ["Ctrl"],
+    inputKey: "Tab",
+  },
+  {
+    description: "Switch focus",
+    specialKeys: ["Tab"],
+    inputKey: "",
+  },
+  {
+    description: "Switch file",
+    specialKeys: ["Ctrl"],
+    inputKey: "1-9",
+  },
+  {
+    description: "New file",
+    specialKeys: ["Ctrl"],
+    inputKey: "N",
+  },
+  {
+    description: "Command pallet",
+    specialKeys: ["Ctrl"],
+    inputKey: "P",
+  },
+  {
+    description: "Copy HTML output",
+    specialKeys: ["Ctrl", "Shift"],
+    inputKey: "H",
+  },
+  {
+    description: "Change theme",
+    specialKeys: ["Ctrl", "Alt"],
+    inputKey: "S",
+  },
+]
+
 // Language support
 const supportedLanguages = [
   "en",
@@ -116,6 +165,8 @@ $("body").keydown(async (e) => {
 
   if (e.key === "p" && ctrlKey) {
     e.preventDefault();
+    createItemList();
+    document.addEventListener("keydown", handleArrowNavigation);
 
     animateDiv(undefined, popup); // handle command pallet
   }
@@ -175,7 +226,15 @@ $("body").keydown(async (e) => {
 
     if (content === "Switch file") {
       handleCommandPrompt(content, 1); // default to switch to 1st tab
-    } else handleCommandPrompt(content);
+    } 
+    else if (content === "Open file") {
+      const arg = await ask_for_file();
+        handleCommandPrompt(content, arg);
+    }
+    else handleCommandPrompt(content);
+
+    animateDiv(true, popup); // force exit command pallet
+    animateDiv(true, $("#cssStyling")); // force exit themes
   }
 });
 
@@ -188,6 +247,9 @@ window.animateDiv = async function (forceClose, el) {
   const fadeAction = isDisabled ? "fadeIn" : "fadeOut";
 
   const windowHeight = $(window).height();
+
+  el.find(".results").css("min-height", windowHeight / 2);
+
   const popupHeight = el.outerHeight();
 
   const scrollPosition = $(window).scrollTop();
@@ -209,7 +271,60 @@ window.animateDiv = async function (forceClose, el) {
   });
 };
 
-document.addEventListener("keydown", handleArrowNavigation);
+function createItemList() {
+  const suggestions = document.querySelectorAll(".suggestion");
+
+  for (let i = 0; i < suggestions.length; i++) {
+    suggestions[i].remove();
+  }
+
+  const list = document.getElementById("suggestionList");
+
+  for (let i = 0; i < shortCutList.length; i++) {
+    let currentItem = shortCutList[i];
+    const li = document.createElement("li");
+    const div = document.createElement("div");
+    const leftContent = document.createElement("div");
+    const rightContent = document.createElement("div");
+
+    div.classList.add("suggestion");
+    leftContent.classList.add("left-content");
+    rightContent.classList.add("right-content");
+
+    const span = document.createElement("span");
+
+    span.textContent = currentItem.description;
+
+    leftContent.appendChild(span);
+
+    for (let j = 0; j < currentItem.specialKeys.length; j++) {
+      let currentKey = currentItem.specialKeys[j];
+
+      const kbd = document.createElement("kbd");
+      kbd.textContent = currentKey;
+
+      rightContent.appendChild(kbd);
+      
+      if (currentItem.inputKey != "") {
+        const span = document.createElement("span");
+        span.textContent = "+";
+        rightContent.appendChild(span);
+      }
+    }
+    
+    if (currentItem.inputKey != "") {
+      const kbd = document.createElement("kbd");
+      kbd.textContent = currentItem.inputKey;
+      rightContent.appendChild(kbd);
+    }
+
+    div.appendChild(leftContent);
+    div.appendChild(rightContent);
+    li.appendChild(div);
+
+    list.appendChild(li);
+  }
+}
 
 function handleArrowNavigation(event) {
   !popup.prop("disabled") && ["ArrowUp", "ArrowDown"].includes(event.key)
@@ -244,6 +359,13 @@ function handleArrowNavigation(event) {
   }
 
   navigableDivs[nextIndex].classList.add("focused");
+  
+  // scroll to the focused div
+  navigableDivs[nextIndex].scrollIntoView({
+    behavior: "smooth",
+    block: "center",
+    inline: "nearest",
+  });
 }
 
 const options = {
@@ -257,14 +379,12 @@ const options = {
   },
 };
 
-const sl = new List("suggestionContainer", options);
-const sc = document.getElementById("suggestionContainer");
-const list = document.getElementById("suggestionList");
 
 const searchInput = document.getElementById("searchInput");
 
 searchInput.addEventListener("input", (event) => {
   const query = event.target.value;
+  const sl = new List("suggestionContainer", options);
 
   sl.fuzzySearch(query);
 
@@ -272,7 +392,9 @@ searchInput.addEventListener("input", (event) => {
 });
 
 function updatePromptHeight() {
+  const list = document.getElementById("suggestionList");
   const newHeight = Math.min(list.children.length * 35, 500);
+  const sc = document.getElementById("suggestionContainer");
 
   $(sc).animate({ height: `${newHeight}px` }, 100);
 }

@@ -26,9 +26,19 @@ struct Child {
     path: String,
 }
 
+#[cfg(target_os = "windows")]
 lazy_static! {
-    static ref PATH: Mutex<String> =
-        Mutex::new("C:/Users/User/Documents/GitHub/text-editor/Folder".to_string());
+    static ref PATH: Mutex<String> = Mutex::new("%USERPROFILE%/Desktop".to_string());
+}
+
+#[cfg(target_os = "linux")]
+lazy_static! {
+    static ref PATH: Mutex<String> = Mutex::new("~/Desktop".to_string());
+}
+
+#[cfg(target_os = "macos")]
+lazy_static! {
+    static ref PATH: Mutex<String> = Mutex::new("~/Desktop".to_string());
 }
 
 #[tauri::command]
@@ -72,15 +82,18 @@ fn save_config() {
 
 #[tauri::command]
 fn delete_file(path: String) -> u8 {
-    delete_child(&path.replace(".md", ""));
+    update_opened(path.clone(), false);
 
     let path = PathBuf::from(PATH.lock().unwrap().clone()).join(path);
 
-    let _ = fs::remove_file(&path);
+    if path.to_str().unwrap().contains("Untitled") {
+        let _ = fs::remove_file(&path).unwrap_or_else(|error| {
+            println!("Failed to remove file: {:?}", error);
+        });
 
-    println!("Removed file: {:?}", path);
-
-    return 0;
+        return 0;
+    }
+    return 1;
 }
 
 #[tauri::command]
@@ -193,6 +206,8 @@ fn get_theme() -> String {
 
 #[tauri::command]
 fn delete_child(path: &str) {
+    delete_file(format!("{}.md", path));
+
     let json_path: PathBuf = PathBuf::from(PATH.lock().unwrap().clone()).join("config.json");
     let contents = fs::read_to_string(&json_path).expect("Failed to read configuration.");
 
@@ -271,6 +286,7 @@ fn update_opened(path: String, add: bool) -> Value {
     let mut json_contents: Value = serde_json::from_str(&contents).expect("Failed to parse JSON");
 
     let mut opened = json_contents["opened"].clone();
+    let mut children = json_contents["children"].clone();
 
     if add {
         let id = &Value::String(child_id.clone());
@@ -286,11 +302,20 @@ fn update_opened(path: String, add: bool) -> Value {
         }
     } else {
         if let Some(array) = opened.as_array_mut() {
-            array.retain(|x| x.as_str() != Some(&child_id));
+            array.retain(|x| {
+                return x.as_str() != Some(&child_id);
+            });
+        }
+
+        if let Some(child_array) = children.as_array_mut() {
+            child_array.retain(|x| {
+                return x["id"].as_str() != Some(&child_id);
+            });
         }
     }
 
     json_contents["opened"] = opened.clone();
+    json_contents["children"] = children.clone();
 
     // Serialize the modified JSON back to a string
     let updated_json =
@@ -317,6 +342,10 @@ fn open_file(path: String) -> (String, String) {
 fn save_title(old_path: String, new_path: String) {
     let old_path_buf = PathBuf::from(PATH.lock().unwrap().clone()).join(&old_path);
     let new_path_buf = PathBuf::from(PATH.lock().unwrap().clone()).join(&new_path);
+
+    if old_path == new_path {
+        return;
+    }
 
     let path = PathBuf::from(PATH.lock().unwrap().clone()).join("config.json");
     let contents =

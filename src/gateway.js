@@ -76,7 +76,8 @@ async function ask_for_file() {
     const result = await tauri.dialog.open({
         title: "Choose a file to open.",
         multiple: false,
-        defaultPath: 'C:/Users/User/Documents/GitHub/text-editor/Folder/',
+        // Not working
+        //defaultPath: 'C:/Users/User/Documents/GitHub/text-editor/Folder/',
         filters: [
             {
                 name: 'Markdown',
