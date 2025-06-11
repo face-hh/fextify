@@ -1,194 +1,283 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="styles.css" />
 
-<head>
-  <meta charset="UTF-8" />
-  <link rel="stylesheet" href="styles.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fextify</title>
+    <script type="module" src="/main.js" defer></script>
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Fextify</title>
-  <script type="module" src="/main.js" defer></script>
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.js"
+      integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+      crossorigin="anonymous"
+    ></script>
 
-  <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
-    crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <script src="https://unpkg.com/tippy.js@6"></script>
 
-  <script src="https://unpkg.com/@popperjs/core@2"></script>
-  <script src="https://unpkg.com/tippy.js@6"></script>
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/toastify-js"
+    ></script>
 
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script src="./ckeditor.js"></script>
 
-  <script src="./ckeditor.js"></script>
+    <script src="./autoresize.js"></script>
+    <script src="./utils.js"></script>
+    <script src="./gateway.js"></script>
+  </head>
 
-
-  <script src="./autoresize.js"></script>
-  <script src="./utils.js"></script>
-  <script src="./gateway.js"></script>
-</head>
-
-<body>
-  <div id="container">
-
-
-    <div id="titleDiv">
-      <textarea class="text" id="title"></textarea>
-    </div>
-    <div id="textDiv">
-      <div class="text" id="main"></div>
-    </div>
-
-  </div>
-
-  <div class="popupStyling">
-    <div id="cssStyling" style="display: none">
-      <h1>Themes</h1>
-
-      <div id="cssGrid">
-        <div class="theme" style="background-color: #0f0f0f; color: white;" onclick="changeTheme('/themes/default.css')">Default</div>
-        <div class="theme" style="background-color: #e8e1d2; color: #0f0f0f;" onclick="changeTheme('/themes/coffee.css')">Coffee</div>
+  <body>
+    <div id="container">
+      <div id="titleDiv">
+        <textarea class="text" id="title"></textarea>
       </div>
-
-      <input id="themeInput" class="input" enterkeyhint="done" type="text" placeholder="URL..." style="padding: 10px; margin-top: 15px; width: 350px">
-    </div>
-  </div>
-
-  <div class="popupStyling">
-    <div id="popup" style="display: none">
-      <input class="input" enterkeyhint="done" type="text" placeholder="Select a command..." id="searchInput">
-
-      <hr>
-
-      <div class="results" id="suggestionContainer">
-        <!-- Suggestions will be displayed here -->
-        <ul class="list" id="suggestionList">
-          <li>
-            <div class="suggestion">
-              <div class="left-content">
-                <span>Close current file</span>
-              </div>
-              <div class="right-content">
-                <kbd>Ctrl</kbd><span> + </span><kbd>W</kbd>
-              </div>
-            </div>
-          </li>
-
-          <li>
-            <div class="suggestion">
-              <div class="left-content">
-                <span>Open file</span>
-              </div>
-              <div class="right-content">
-                <kbd>Ctrl</kbd><span> + </span><kbd>O</kbd>
-              </div>
-            </div>
-          </li>
-
-          <li>
-            <div class="suggestion">
-              <div class="left-content">
-                <span>Switch file (quick)</span>
-              </div>
-              <div class="right-content">
-                <kbd>Ctrl</kbd><span> + </span><kbd>Tab</kbd>
-              </div>
-            </div>
-          </li>
-
-          <li>
-            <div class="suggestion">
-              <div class="left-content">
-                <span>Switch focus</span>
-              </div>
-              <div class="right-content">
-                <kbd>Tab</kbd>
-              </div>
-            </div>
-          </li>
-
-          <li>
-            <div class="suggestion">
-              <div class="left-content">
-                <span>Switch file</span>
-              </div>
-              <div class="right-content">
-                <kbd>Ctrl</kbd><span> + </span><kbd>1-9</kbd>
-              </div>
-            </div>
-          </li>
-
-          <li>
-            <div class="suggestion">
-              <div class="left-content">
-                <span>New file</span>
-              </div>
-              <div class="right-content">
-                <kbd>Ctrl</kbd><span> + </span><kbd>N</kbd>
-              </div>
-            </div>
-          </li>
-
-          <li>
-            <div class="suggestion">
-              <div class="left-content">
-                <span>Command pallet</span>
-              </div>
-              <div class="right-content">
-                <kbd>Ctrl</kbd><span> + </span><kbd>P</kbd>
-              </div>
-            </div>
-          </li>
-
-          <li>
-            <div class="suggestion">
-              <div class="left-content">
-                <span>Copy HTML output</span>
-              </div>
-              <div class="right-content">
-                <kbd>Ctrl</kbd><span> + </span><kbd>Shift</kbd><span> + </span><kbd>H</kbd>
-              </div>
-            </div>
-          </li>
-
-          <li>
-            <div class="suggestion">
-              <div class="left-content">
-                <span>Change theme</span>
-              </div>
-              <div class="right-content">
-                <kbd>Ctrl</kbd><span> + </span><kbd>Alt</kbd><span> + </span><kbd>S</kbd>
-              </div>
-            </div>
-          </li>
-
-        </ul>
-      </div>
-
-      <div class="navigation">
-        <kbd class="wideKbd">⬆</kbd>
-        <kbd class="wideKbd">⬇</kbd>
-        <kbd>Enter</kbd>
-        <span>- Navigation</span>
+      <div id="textDiv">
+        <div class="text" id="main"></div>
       </div>
     </div>
-  </div>
 
-  <div class="bottomLeft">
-    <ul class="pages">
-      <li>1</li>
-      <li>2</li>
-      <li>3</li>
-      <li>4</li>
-      <li class="active">5</li>
-    </ul>
-  </div>
-  <div class="bottomRight">
-    <div>
-      <span id="words">0</span>
-      <span>words</span>
-      <div style="margin-left: 5px;"></div>
-      <span id="chars">0</span>
-      <span>characters</span>
+    <div class="popupStyling">
+      <div id="cssStyling" style="display: none">
+        <h1>Themes</h1>
+
+        <div id="cssGrid">
+          <div
+            class="theme"
+            style="background-color: #0f0f0f; color: white"
+            onclick="changeTheme('/themes/default.css')"
+          >
+            Default
+          </div>
+          <div
+            class="theme"
+            style="background-color: #e8e1d2; color: #0f0f0f"
+            onclick="changeTheme('/themes/coffee.css')"
+          >
+            Coffee
+          </div>
+          <div
+            class="theme"
+            style="background-color: #282a36; color: #f8f8f2"
+            onclick="changeTheme('/themes/dracula.css')"
+          >
+            Dracula
+          </div>
+          <div
+            class="theme"
+            style="background-color: #2e3440; color: #d8dee9"
+            onclick="changeTheme('/themes/nord.css')"
+          >
+            Nord
+          </div>
+          <div
+            class="theme"
+            style="background-color: #272822; color: #f8f8f2"
+            onclick="changeTheme('/themes/monokai.css')"
+          >
+            Monokai
+          </div>
+          <div
+            class="theme"
+            style="background-color: #002b36; color: #839496"
+            onclick="changeTheme('/themes/solarized-dark.css')"
+          >
+            Solarized
+          </div>
+          <div
+            class="theme"
+            style="background-color: #282828; color: #ebdbb2"
+            onclick="changeTheme('/themes/gruvbox.css')"
+          >
+            Gruvbox
+          </div>
+          <div
+            class="theme"
+            style="background-color: #1a1b26; color: #c0caf5"
+            onclick="changeTheme('/themes/tokyo-night.css')"
+          >
+            Tokyo Night
+          </div>
+          <div
+            class="theme"
+            style="background-color: #1e1e2e; color: #cdd6f4"
+            onclick="changeTheme('/themes/catppuccin-mocha.css')"
+          >
+            Catppuccin
+          </div>
+          <div
+            class="theme"
+            style="background-color: #282c34; color: #abb2bf"
+            onclick="changeTheme('/themes/one-dark.css')"
+          >
+            One Dark
+          </div>
+          <div
+            class="theme"
+            style="background-color: #111; color: white"
+            onclick="changeTheme('/themes/mythacker.css')"
+          >
+            MyHacker
+          </div>
+        </div>
+
+        <input
+          id="themeInput"
+          class="input"
+          enterkeyhint="done"
+          type="text"
+          placeholder="URL..."
+          style="padding: 10px; margin-top: 15px; width: 350px"
+        />
+      </div>
     </div>
-  </div>
-</body>
 
+    <div class="popupStyling">
+      <div id="popup" style="display: none">
+        <input
+          class="input"
+          enterkeyhint="done"
+          type="text"
+          placeholder="Select a command..."
+          id="searchInput"
+        />
+
+        <hr />
+
+        <div class="results" id="suggestionContainer">
+          <!-- Suggestions will be displayed here -->
+          <ul class="list" id="suggestionList">
+            <li>
+              <div class="suggestion">
+                <div class="left-content">
+                  <span>Close current file</span>
+                </div>
+                <div class="right-content">
+                  <kbd>Ctrl</kbd><span> + </span><kbd>W</kbd>
+                </div>
+              </div>
+            </li>
+
+            <li>
+              <div class="suggestion">
+                <div class="left-content">
+                  <span>Open file</span>
+                </div>
+                <div class="right-content">
+                  <kbd>Ctrl</kbd><span> + </span><kbd>O</kbd>
+                </div>
+              </div>
+            </li>
+
+            <li>
+              <div class="suggestion">
+                <div class="left-content">
+                  <span>Switch file (quick)</span>
+                </div>
+                <div class="right-content">
+                  <kbd>Ctrl</kbd><span> + </span><kbd>Tab</kbd>
+                </div>
+              </div>
+            </li>
+
+            <li>
+              <div class="suggestion">
+                <div class="left-content">
+                  <span>Switch focus</span>
+                </div>
+                <div class="right-content">
+                  <kbd>Tab</kbd>
+                </div>
+              </div>
+            </li>
+
+            <li>
+              <div class="suggestion">
+                <div class="left-content">
+                  <span>Switch file</span>
+                </div>
+                <div class="right-content">
+                  <kbd>Ctrl</kbd><span> + </span><kbd>1-9</kbd>
+                </div>
+              </div>
+            </li>
+
+            <li>
+              <div class="suggestion">
+                <div class="left-content">
+                  <span>New file</span>
+                </div>
+                <div class="right-content">
+                  <kbd>Ctrl</kbd><span> + </span><kbd>N</kbd>
+                </div>
+              </div>
+            </li>
+
+            <li>
+              <div class="suggestion">
+                <div class="left-content">
+                  <span>Command pallet</span>
+                </div>
+                <div class="right-content">
+                  <kbd>Ctrl</kbd><span> + </span><kbd>P</kbd>
+                </div>
+              </div>
+            </li>
+
+            <li>
+              <div class="suggestion">
+                <div class="left-content">
+                  <span>Copy HTML output</span>
+                </div>
+                <div class="right-content">
+                  <kbd>Ctrl</kbd><span> + </span><kbd>Shift</kbd><span> + </span
+                  ><kbd>H</kbd>
+                </div>
+              </div>
+            </li>
+
+            <li>
+              <div class="suggestion">
+                <div class="left-content">
+                  <span>Change theme</span>
+                </div>
+                <div class="right-content">
+                  <kbd>Ctrl</kbd><span> + </span><kbd>Alt</kbd><span> + </span
+                  ><kbd>S</kbd>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="navigation">
+          <kbd class="wideKbd">⬆</kbd>
+          <kbd class="wideKbd">⬇</kbd>
+          <kbd>Enter</kbd>
+          <span>- Navigation</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="bottomLeft">
+      <ul class="pages">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li class="active">5</li>
+      </ul>
+    </div>
+    <div class="bottomRight">
+      <div>
+        <span id="words">0</span>
+        <span>words</span>
+        <div style="margin-left: 5px"></div>
+        <span id="chars">0</span>
+        <span>characters</span>
+      </div>
+    </div>
+  </body>
 </html>

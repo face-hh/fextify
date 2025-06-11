@@ -1,0 +1,114 @@
+:root {
+    --text-color: #ebdbb2;
+    
+    background-color: #282828;
+    color: var(--text-color);
+
+    --ck-color-base-background: #3c3836 !important;
+    --ck-color-base-border: #504945 !important;
+
+    --ck-color-base-focus: #504945 !important;
+
+    --ck-color-button-default-active-background: #3c3836 !important;
+    --ck-color-button-default-hover-background: #3c3836 !important;
+
+    --ck-color-button-on-color: #504945 !important;
+    --ck-color-upload-bar-background: #504945 !important;
+    --ck-color-focus-border: #83a598 !important;
+    --ck-color-focus-outer-shadow: #83a598 !important;
+
+    --ck-color-base-text: #ebdbb2 !important;
+
+    --ck-color-base-active: none !important;
+    --ck-color-base-active-focus: none !important;
+
+    --ck-color-link-default: #83a598 !important;
+
+    --ck-focus-ring: none !important;
+    --ck-border-radius: 10px !important;
+}
+
+::selection {
+    background: #504945;
+}
+
+.ck-content text {
+    color: var(--text-color);
+}
+
+.ck ck-button__label {
+    color: var(--text-color);
+}
+
+#popup {
+    background-color: #3c3836;
+    box-shadow: 0px 1.8px 7.3px rgba(0, 0, 0, 0.3),
+        0px 6.3px 24.7px rgba(0, 0, 0, 0.4),
+        0px 30px 90px rgba(0, 0, 0, 0.5);
+}
+
+.focused {
+    background-color: #504945;
+}
+
+.navigation {
+    background-color: #d79921;
+    color: #282828;
+}
+
+kbd {
+    background-color: #fbf1c7;
+    border: 1px solid #504945;
+    box-shadow:
+        0 1px 1px rgba(0, 0, 0, 0.2),
+        0 2px 0 0 rgba(251, 241, 199, 0.7) inset;
+    color: #282828;
+}
+
+input {
+    background-color: #3c3836;
+    color: var(--text-color);
+    border: 1px solid #504945;
+}
+
+hr {
+    background-color: #504945;
+}
+
+.text {
+    background-color: #3c3836;
+    border: 1px solid #504945;
+    color: var(--text-color);
+}
+
+.bottomRight>div {
+    background-color: #d79921;
+    color: #282828;
+}
+
+.active {
+    color: #282828 !important;
+    background-color: #d79921 !important;
+}
+
+.pages {
+    box-shadow: 0px 20px 50px 20px #282828;
+}
+
+.pages li {
+    color: #ebdbb2;
+    border: #504945 1px solid;
+    background-color: #3c3836;
+}
+
+.toastify {
+    background-color: #b8bb26;
+    color: #282828;
+}
+
+#cssStyling {
+    background-color: #3c3836;
+    box-shadow: 0px 1.8px 7.3px rgba(0, 0, 0, 0.3),
+        0px 6.3px 24.7px rgba(0, 0, 0, 0.4),
+        0px 30px 90px rgba(0, 0, 0, 0.5);
+}
