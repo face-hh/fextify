@@ -1,0 +1,112 @@
+:root {
+    --text-color: #f8f8f2;
+    
+    background-color: #272822;
+    color: var(--text-color);
+
+    --ck-color-base-background: #3e3d32 !important;
+    --ck-color-base-border: #49483e !important;
+
+    --ck-color-base-focus: #49483e !important;
+
+    --ck-color-button-default-active-background: #49483e !important;
+    --ck-color-button-default-hover-background: #49483e !important;
+
+    --ck-color-button-on-color: #49483e !important;
+    --ck-color-upload-bar-background: #49483e !important;
+    --ck-color-focus-border: #a6e22e !important;
+    --ck-color-focus-outer-shadow: #a6e22e !important;
+
+    --ck-color-base-text: #f8f8f2 !important;
+
+    --ck-color-base-active: none !important;
+    --ck-color-base-active-focus: none !important;
+
+    --ck-color-link-default: #66d9ef !important;
+
+    --ck-focus-ring: none !important;
+    --ck-border-radius: 10px !important;
+}
+
+::selection {
+    background: #49483e;
+}
+
+.ck-content text {
+    color: var(--text-color);
+}
+
+.ck ck-button__label {
+    color: var(--text-color);
+}
+
+#popup {
+    background-color: #3e3d32;
+    box-shadow: 0px 1.8px 7.3px rgba(0, 0, 0, 0.3),
+        0px 6.3px 24.7px rgba(0, 0, 0, 0.4),
+        0px 30px 90px rgba(0, 0, 0, 0.5);
+}
+
+.focused {
+    background-color: #49483e;
+}
+
+.navigation {
+    background-color: #f92672;
+}
+
+kbd {
+    background-color: #a6e22e;
+    border: 1px solid #49483e;
+    box-shadow:
+        0 1px 1px rgba(0, 0, 0, 0.2),
+        0 2px 0 0 rgba(166, 226, 46, 0.7) inset;
+    color: #272822;
+}
+
+input {
+    background-color: #3e3d32;
+    color: var(--text-color);
+    border: 1px solid #49483e;
+}
+
+hr {
+    background-color: #49483e;
+}
+
+.text {
+    background-color: #3e3d32;
+    border: 1px solid #49483e;
+    color: var(--text-color);
+}
+
+.bottomRight>div {
+    background-color: #f92672;
+}
+
+.active {
+    color: #f8f8f2 !important;
+    background-color: #f92672 !important;
+}
+
+.pages {
+    box-shadow: 0px 20px 50px 20px #272822;
+}
+
+.pages li {
+    color: #f8f8f2;
+    border: #49483e 1px solid;
+    background-color: #3e3d32;
+}
+
+.toastify {
+    background-color: #a6e22e;
+    color: #272822;
+}
+
+#cssStyling {
+    background-color: #3e3d32;
+    box-shadow: 0px 1.8px 7.3px rgba(0, 0, 0, 0.3),
+        0px 6.3px 24.7px rgba(0, 0, 0, 0.4),
+        0px 30px 90px rgba(0, 0, 0, 0.5);
+}

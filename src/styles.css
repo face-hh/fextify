@@ -1,7 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 
 :root {
-  font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Inter", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Microsoft YaHei Light", sans-serif;
+  font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, "Inter", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+    "Microsoft YaHei Light", sans-serif;
   font-size: 20px;
   font-weight: 400;
 
@@ -34,7 +36,7 @@
   --ck-color-base-active: none !important;
   --ck-color-base-active-focus: none !important;
 
-  --ck-color-link-default: #009DC9 !important;
+  --ck-color-link-default: #009dc9 !important;
 
   --ck-focus-ring: none !important;
   --ck-border-radius: 10px !important;
@@ -84,7 +86,6 @@ textarea {
   justify-content: center;
   flex-direction: column;
   align-items: center;
-
 
   padding: 20px;
 }
@@ -167,8 +168,7 @@ textarea {
   border-radius: 12px;
   background-color: #171717;
   box-shadow: 0px 1.8px 7.3px rgba(0, 0, 0, 0.071),
-    0px 6.3px 24.7px rgba(0, 0, 0, 0.112),
-    0px 30px 90px rgba(0, 0, 0, 0.2);
+    0px 6.3px 24.7px rgba(0, 0, 0, 0.112), 0px 30px 90px rgba(0, 0, 0, 0.2);
   border: 1 solid #915d5d;
   z-index: 1;
   position: absolute;
@@ -228,8 +228,7 @@ kbd {
   background-color: #eee;
   border-radius: 3px;
   border: 1px solid #b4b4b4;
-  box-shadow:
-    0 1px 1px rgba(0, 0, 0, 0.2),
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2),
     0 2px 0 0 rgba(255, 255, 255, 0.7) inset;
   color: #333;
   display: inline-block;
@@ -244,7 +243,9 @@ input {
   flex: 1;
   padding: 20px;
   /* box-sizing: border-box; */
-  font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Inter", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Microsoft YaHei Light", sans-serif;
+  font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, "Inter", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+    "Microsoft YaHei Light", sans-serif;
   font-size: 20px;
   font-weight: 400;
   background-color: #171717;
@@ -262,7 +263,6 @@ hr {
   background-color: #2f2f2f;
   border: none;
 
-
   position: absolute;
   top: 60px;
 }
@@ -278,7 +278,9 @@ ul {
   padding: 10px;
   box-sizing: border-box;
 
-  font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Inter", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Microsoft YaHei Light", sans-serif;
+  font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, "Inter", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+    "Microsoft YaHei Light", sans-serif;
   font-size: 20px;
   font-weight: 400;
 
@@ -303,7 +305,7 @@ ul {
   right: 0;
 }
 
-.bottomRight>div {
+.bottomRight > div {
   display: flex;
   flex-direction: row;
   gap: 3px;
@@ -351,7 +353,7 @@ ul {
   align-items: center;
 
   opacity: 0;
-  transition: all .4s cubic-bezier(.215, .61, .355, 1);
+  transition: all 0.4s cubic-bezier(0.215, 0.61, 0.355, 1);
 
   cursor: default;
 
@@ -363,7 +365,7 @@ ul {
 }
 
 .toastify.on {
-  opacity: 1
+  opacity: 1;
 }
 
 .toast-close {
@@ -373,35 +375,35 @@ ul {
   cursor: pointer;
   font-family: inherit;
   font-size: 1em;
-  opacity: .4;
-  padding: 0 5px
+  opacity: 0.4;
+  padding: 0 5px;
 }
 
 .toastify-right {
-  right: 15px
+  right: 15px;
 }
 
 .toastify-left {
-  left: 15px
+  left: 15px;
 }
 
 .toastify-top {
-  top: -150px
+  top: -150px;
 }
 
 .toastify-bottom {
-  bottom: -150px
+  bottom: -150px;
 }
 
 .toastify-rounded {
-  border-radius: 25px
+  border-radius: 25px;
 }
 
 .toastify-avatar {
   width: 1.5em;
   height: 1.5em;
   margin: -7px 5px;
-  border-radius: 2px
+  border-radius: 2px;
 }
 
 .toastify-center {
@@ -410,18 +412,17 @@ ul {
   left: 0;
   right: 0;
   max-width: fit-content;
-  max-width: -moz-fit-content
+  max-width: -moz-fit-content;
 }
 
-@media only screen and (max-width:360px) {
-
+@media only screen and (max-width: 360px) {
   .toastify-left,
   .toastify-right {
     margin-left: auto;
     margin-right: auto;
     left: 0;
     right: 0;
-    max-width: fit-content
+    max-width: fit-content;
   }
 }
 
@@ -435,13 +436,12 @@ ul {
   border-radius: 12px;
   background-color: #171717;
   box-shadow: 0px 1.8px 7.3px rgba(0, 0, 0, 0.071),
-    0px 6.3px 24.7px rgba(0, 0, 0, 0.112),
-    0px 30px 90px rgba(0, 0, 0, 0.2);
+    0px 6.3px 24.7px rgba(0, 0, 0, 0.112), 0px 30px 90px rgba(0, 0, 0, 0.2);
   border: 1 solid #915d5d;
   z-index: 1;
   position: absolute;
   top: 80px;
-  width: 400px;
+  width: 500px;
   max-width: 80vw;
   max-height: 70vh;
   overflow: hidden;
@@ -449,19 +449,28 @@ ul {
 
 #cssGrid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 10px;
+  margin-bottom: 15px;
 }
 
 .theme {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 15px;
-  width: 80px;
-  height: 40px;
+  font-size: 12px;
+  font-weight: 600;
+  width: 90px;
+  height: 50px;
   background-color: white;
-  border-radius: 20px;
-
+  border-radius: 8px;
   cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  text-align: center;
+  padding: 5px;
+}
+
+.theme:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
